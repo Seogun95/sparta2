@@ -61,33 +61,33 @@
             $(document).ready(function () {
                 show_order();
             });
-            function show_order() {
-                $('#order-box').empty();
-                $.ajax({
-                    type: 'GET',
-                    url: '/mars',
-                    data: {},
-                    success: function (response) {
-                        console.log(response);
-                        let rows = response['orders'];
-                        for (let i = 0; i < rows.length; i++) {
-                            let row = rows[i];
-                            let name = row['name'];
-                            let address = row['address'];
-                            let size = row['size'];
+function show_order() {
+    $('#order-box').empty();
+    $.ajax({
+        type: 'GET',
+        url: '/mars',
+        data: {},
+        success: function (response) {
+            console.log(response);
+            let rows = response['orders'];
+            for (let i = 0; i < rows.length; i++) {
+                let row = rows[i];
+                let name = row['name'];
+                let address = row['address'];
+                let size = row['size'];
 
-                            let tempHTML = `
-                            <tr>
-                                <td>${name}</td>
-                                <td>${address}</td>
-                                <td>${size}</td>
-                            </tr>
-                            `;
-                            $('#order-box').append(tempHTML);
-                        }
-                    },
-                });
+                let tempHTML = `
+                <tr>
+                    <td>${name}</td>
+                    <td>${address}</td>
+                    <td>${size}</td>
+                </tr>
+                `;
+                $('#order-box').append(tempHTML);
             }
+        },
+    });
+}
             function save_order() {
                 let name = $('#name').val();
                 let address = $('#address').val();
@@ -98,6 +98,7 @@
                     url: '/mars',
                     data: { name_give: name, address_give: address, size_give: size },
                     success: function (response) {
+                        alert(response['msg']);
                         window.location.reload();
                     },
                 });
@@ -143,7 +144,23 @@
                         <th scope="col">평수</th>
                     </tr>
                 </thead>
-                <tbody id="order-box"></tbody>
+                <tbody id="order-box">
+                    <tr>
+                        <td>홍길동</td>
+                        <td>서울시 용산구</td>
+                        <td>20평</td>
+                    </tr>
+                    <tr>
+                        <td>임꺽정</td>
+                        <td>부산시 동구</td>
+                        <td>10평</td>
+                    </tr>
+                    <tr>
+                        <td>세종대왕</td>
+                        <td>세종시 대왕구</td>
+                        <td>30평</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </body>
